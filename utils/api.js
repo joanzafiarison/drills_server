@@ -1,35 +1,6 @@
 const EXERCISE_URL = "http://localhost:5000/exercise";
 const MOVE_URL = "http://localhost:5000/move";
 
-const MOCKDB = {
-    "exercises" : [
-        {
-            id : 1,
-            name : "exercise Test",
-            sport :"mma",
-            type : "strength",
-            duration : 30 * 60,
-            stretch : [5, 76, 54],
-            train : [3,5,8],
-            warming : [34, 21, 10] 
-        },
-        {
-            id : 2,
-            name : "exercise 2 MMA",
-            sport :"mma",
-            type : "stamina",
-            duration : 30 * 60,
-            stretch : [5, 32, 14],
-            train : [1,2,9],
-            warming : [14, 1, 9] 
-        }
-    ],
-    "moves" : [
-        {
-
-        }
-    ]
-}
 async function getExerciseById( id ){
     const init = {
         method : "GET"
