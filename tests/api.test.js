@@ -1,5 +1,14 @@
-const { getExerciseById, getExercises, saveExercise} = require("../utils/api");
+const { getExerciseById, getExercises, saveExercise , authenticate} = require("../utils/api");
 
+
+test("connect successfully", async () => {
+    const data = {
+        email : "Judi@mail.com",
+        password : "IBNDOIDEZ"
+        
+    }
+    expect( await authenticate( data ))
+})
 
 test("get Exercise with id x ", async () => {
     expect( await getExerciseById(1)).toBe({

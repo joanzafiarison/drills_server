@@ -1,5 +1,23 @@
 const EXERCISE_URL = "http://localhost:5000/exercise";
 const MOVE_URL = "http://localhost:5000/move";
+const AUTH_URL = "http://localhost:5000/auth";
+
+async function authenticate ( userData) {
+    const init ={
+        method : "POST"
+    };
+    let response = {};
+    if(userData.email && userData.password){
+        try {
+        response= await fetch(`${AUTH_URL}`, init)
+        console.log("response",response);
+        }
+        catch (err) {
+            throw err;
+        }
+    }
+    return response;
+}
 
 async function getExerciseById( id ){
     const init = {
