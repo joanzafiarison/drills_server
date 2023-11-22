@@ -5,6 +5,10 @@ const app = express();
 app.use( cors() );
 
 app.get('/', (req, res) => {
+ // if Table Exercise dont exist 
+ // if Table Move dont exist
+ // if User dont exist
+    //UserPref , UserHistoric , UserSchedule
  res.send("Home")
 });
 

@@ -1,5 +1,7 @@
-var mysql = require('mysql');
-var dotenv = require('dotenv');
+const mysql = require('mysql');
+const dotenv = require('dotenv');
+const util = require('util');
+
 dotenv.config();
 
 var connexion = mysql.createConnection({
@@ -9,4 +11,27 @@ var connexion = mysql.createConnection({
   database: process.env.DB_NAME
 });
 
-module.export = connexion;
+const query = util.promisify(connexion.query).bind(connexion);
+
+const init = async () => {
+    const tables = ["sports", "moves" , "categories" , "exercisemoves", "users","userschedules","userfavorites","userhistorics"];
+    for( let table of tables) {
+        try {
+            let rows = await query(`SELECT * FROM ${table}`);
+            console.log(rows.length);
+            if( rows.length == 0){
+                //get Model and FIll
+            }
+        }
+        catch (err) {
+            connexion.end();
+        }
+    }
+   
+    
+}
+
+module.exports = {
+    query,
+    init
+} 
