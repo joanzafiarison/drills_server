@@ -6,6 +6,12 @@ app.use(express.json());
 app.use(express.urlencoded());
 app.use( cors() );
 
+const jwt = require("jsonwebtoken");
+const dotenv = require("dotenv");
+dotenv.config();
+
+const SECRET_KEY = process.env.SECRET_KEY
+
 const User = require("./models/users");
 
 app.get('/init', (req, res) => {
@@ -38,6 +44,7 @@ app.get('/user/:id', (req, res) => {
 
 app.post("/auth", async (req,res) => {
     const { email , password } = req.body; 
+    console.log("body",req.body)
     try {
         let user = await User.getUser({
             email : email,
@@ -45,14 +52,25 @@ app.post("/auth", async (req,res) => {
         });
         if(user.length == 1){
             // return token
-            res.send(JSON.stringify(user[0]));
+            const expireIn = 24 * 60 * 60;
+            const token = jwt.sign({
+                user : user[0]
+            },
+            SECRET_KEY,
+            {
+                expiresIn : expireIn
+            });
+
+            res.header('Authorization', 'Bearer ' + token);
+
+            return res.status(200).json('auth_ok');
         }
         else {
-            res.send("no user found")
+            return res.status(404).json('user not found');
         }
     }
     catch(err) {
-        res.send(JSON.stringify(err))
+        return res.status(501).json(err);
     }
     
 });

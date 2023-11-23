@@ -25,6 +25,7 @@
   "dependencies": {
     "-": "^0.0.1",
     "g": "^2.0.1",
+    "jsonwebtoken": "^9.0.2",
     "mysql": "^2.18.1",
     "sequelize-cli": "^6.6.2"
   }

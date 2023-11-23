@@ -3,14 +3,20 @@ const MOVE_URL = "http://localhost:5000/move";
 const AUTH_URL = "http://localhost:5000/auth";
 
 async function authenticate ( userData) {
-    const init ={
-        method : "POST"
-    };
+
     let response = {};
+    
     if(userData.email && userData.password){
+        const init ={
+            method : "POST",
+            body : JSON.stringify({
+                email : userData.email,
+                password :userData.password
+            })
+        };
         try {
-        response= await fetch(`${AUTH_URL}`, init)
-        console.log("response",response);
+            let rep= await fetch(`${AUTH_URL}`, init)
+            response = await rep.json();
         }
         catch (err) {
             throw err;
@@ -102,5 +108,6 @@ module.exports = {
     saveExercise,
     getMoveById,
     getMoves,
-    saveMove
+    saveMove,
+    authenticate
 }

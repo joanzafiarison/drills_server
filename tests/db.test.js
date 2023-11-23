@@ -3,7 +3,7 @@ const User = require("../models/users");
 
 test ("it connects to db", async () =>{
     let users = await query("SELECT * FROM users");
-    expect(users.length).toBe(5);
+    expect(users.length).toBe(8);
 })
 
 test ("there is a user named 'FRANCK'", async () =>{
@@ -30,5 +30,6 @@ test('save a new User', async () => {
         email : "joanzaf@lilo.org",
         password : "mdp"
     })
+    await User.deleteUser("joanzaf@lilo.org");
     expect(user_found[0].name).toBe("Joan");
 })

@@ -7,7 +7,9 @@ test("connect successfully", async () => {
         password : "IBNDOIDEZ"
         
     }
-    expect( await authenticate( data ))
+    expect( await authenticate( data )).toBe({
+        "name" : "Judith"
+    })
 })
 
 test("get Exercise with id x ", async () => {

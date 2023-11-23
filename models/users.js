@@ -7,7 +7,29 @@ interface UserModel {
     email : string
     password :string
     created_at :datetime
-}*/
+}
+
+Interface UserFavorites {
+    name : string
+    value : string
+}
+
+Interface UserSchedules {
+    datetime : datetime 
+    type : string
+    event_id : number
+    status : string
+
+}
+
+Interface UserHistorics {
+    exercise_id : number 
+    user_id : number 
+    note : string
+    mark : number
+    attachment : string
+}
+*/
 
 async function getUser( data ){
     let user = {};
@@ -29,7 +51,18 @@ async function saveUser( data ){
     }
 }
 
+
+async function deleteUser( email ){
+    try {
+        await query(`DELETE FROM users WHERE email = '${email}'`);
+    }
+    catch(e) {
+        throw e;
+    }
+}
+
 module.exports = {
     getUser,
-    saveUser
+    saveUser,
+    deleteUser
 }
