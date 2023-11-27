@@ -12,6 +12,8 @@ dotenv.config();
 
 const SECRET_KEY = process.env.SECRET_KEY
 
+
+const ExerciseController = require("./router/exercise.route");
 const User = require("./models/users");
 
 app.get('/init', (req, res) => {
@@ -22,20 +24,8 @@ app.get('/init', (req, res) => {
  res.send("Home")
 });
 
-app.get('/exercise/:id', (req, res) => {
-    const id = req.params.id;
-    res.send(`get exercise id ${id}`)
-});
+app.use('/exercises', ExerciseController );
 
-app.post('/exercise/', (req, res) => {
-    const { query } = req.body;
-    res.send("get exercises")
-});
-
-app.post('/exercise/save', (req, res) => {
-    const { query } = req.body;
-    res.send("get exercises")
-});
 
 app.get('/user/:id', (req, res) => {
     const id = req.params.id;
