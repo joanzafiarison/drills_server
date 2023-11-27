@@ -1,5 +1,6 @@
 const express = require('express');
-var cors = require('cors')
+var cors = require('cors');
+const auth = require('./middlewares/auth');
 const app = express();
 
 app.use(express.json());
@@ -14,6 +15,7 @@ const SECRET_KEY = process.env.SECRET_KEY
 
 
 const ExerciseController = require("./router/exercise.route");
+const UserController = require("./router/user.route");
 const User = require("./models/users");
 
 app.get('/init', (req, res) => {
@@ -24,16 +26,12 @@ app.get('/init', (req, res) => {
  res.send("Home")
 });
 
-app.use('/exercises', ExerciseController );
+app.use('/exercises', auth, ExerciseController );
 
-
-app.get('/user/:id', (req, res) => {
-    const id = req.params.id;
-    res.send(`user id ${id}`);
-});
+app.use('/user', auth, UserController );
 
 app.post("/auth", async (req,res) => {
-    const { email , password } = req.body; 
+    const {  email , password } = req.body; 
     console.log("body",req.body)
     try {
         let user = await User.getUser({
