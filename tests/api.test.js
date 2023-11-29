@@ -1,5 +1,6 @@
 const { getExerciseById, getExercises, saveExercise , authenticate} = require("../utils/api");
 
+const TOKEN ="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7IklEIjoyLCJuYW1lIjoiSnVkaXRoIiwicHNldWRvIjoiSnVkaTg3IiwiZW1haWwiOiJKdWRpQG1haWwuY29tIiwicGFzc3dvcmQiOiJJQk5ET0lERVoiLCJjcmVhdGVkX2F0IjoiMjAyMy0wNy0xM1QwNzoxNzo0OS4wMDBaIn0sImlhdCI6MTcwMTA5MzgyMCwiZXhwIjoxNzAxMTgwMjIwfQ.muDoTqAOlUHamdTNnYUWK1kJQmX02LN_-DEstCRdFiY";
 
 test("connect successfully", async () => {
     const data = {
@@ -7,7 +8,7 @@ test("connect successfully", async () => {
         password : "IBNDOIDEZ"
         
     }
-    expect( await authenticate( data )).toBe({
+    expect( await authenticate( data, TOKEN )).toBe({
         "name" : "Judith"
     })
 })

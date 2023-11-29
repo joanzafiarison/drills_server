@@ -13,16 +13,23 @@ const auth  = ( req, res, next ) =>  {
     const { email } = req.body;
     if(headers.authorization) {
         let token = headers.authorization.split(" ")[1];
-        console.log("token ",  token);
-        let userData = jwt.decode(token,  process.env.SECRET_KEY)
-        if( email == userData.email ){
-            next();
+        let userData = jwt.decode(token,  process.env.SECRET_KEY);
+        try {
+            if( userData.user && userData.user.email== email ){
+                console.log('mail ok');
+                next();
+            }
+            else {
+                res.send("not ok")
+            }
+        } catch(err) {
+            throw err;
         }
+
     }
     else {
         console.log("no token provided")
     }
-    res.status(403).send("Auth error");
 
    
 }
